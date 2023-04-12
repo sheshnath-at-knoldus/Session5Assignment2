@@ -7,12 +7,12 @@ import scala.concurrent.{Await, Future}
 object Driver extends App {
 
   private val csvFilePath ="src/Resources/StudentDetails.csv"
-  private val csv = new StudentMarks()
+  private val studentMarks = new StudentMarks()
 
-  val parsedCsv: Future[List[Map[String, String]]] = csv.parseCsv(csvFilePath)
-  val studentAverages: Future[List[(String, Double, String)]] = csv.calculateStudentAverages(parsedCsv)
-  val classAverage: Future[Double] = csv.calculateClassAverage(studentAverages)
-  private val classGrades: Future[Double] = csv.calculateGrades(csvFilePath)
+  val parsedCsv: Future[List[Map[String, String]]] = studentMarks.parseCsv(csvFilePath)
+  val studentAverages: Future[List[(String, Double, String)]] = studentMarks.calculateStudentAverages(parsedCsv)
+  val classAverage: Future[Double] = studentMarks.calculateClassAverage(studentAverages)
+  private val classGrades: Future[Double] = studentMarks.calculateGrades(csvFilePath)
 
   classAverage.onComplete {
     case Success(value) => println(s"The class average is $value")
